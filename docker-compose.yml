@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  web:
+    build: 
+     context: ./app
+     dockerfile: Dockerfile
+    command: gunicorn sunday_next.wsgi :application --bind 0.0.0.0:7080
+    
+    volumes:
+      - ./app/:/home/app/web
+    ports:
+      - 7080:8000
+    env_file:
+      - ./.env.dev
+    depends_on:
+       - db
+    expose:
+     - 7080
+  db:
+    image: postgres:15
+    volumes:
+      - ./_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
+
+  adminer:
+   image: adminer
+   restart: always
+   depends_on:
+     - db
+   ports:
+     - 7090:8080
+
+  nginx:
+   build: ./nginx
+   ports:
+   - 1337:80
+   depends_on:
+    - web
+volumes:
+  _data:
+
+
+

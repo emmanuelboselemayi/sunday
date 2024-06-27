@@ -1,0 +1,22 @@
+<div class="home-slideshow">
+    {% for item in items %}
+    <div class="slide">
+        <div class="blur-up lazyload">
+            <img class="blur-up lazyload" data-src="mediafiles/{{ item.images }}" src="mediafiles/{{ item.images }}" alt="{{ item.description }}" title={{ item.description }} />
+            <div class="slideshow__text-wrap slideshow__overlay classic middle">
+                <div class="slideshow__text-content middle">
+                    <div class="container">
+                        <div class="wrap-caption right">
+                            <h2 class="h1 mega-title slideshow__title">{{ item.description }}
+                            <span class="mega-subtitle slideshow__subtitle">{{ item.tagline }} </span>
+                            <span class="btn">Shop now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
